@@ -115,14 +115,15 @@ def fit(
     # (X^T X)^{-1} = R^{-1} R^{-T}; only its diagonal is needed for the standard errors.
     R_inv = linalg.solve_triangular(R, np.eye(k))
     se = np.sqrt(sigma2 * np.sum(R_inv**2, axis=1))
-    t = coef / se
+    with np.errstate(divide="ignore", invalid="ignore"):  # exact fits give se = 0
+        t = coef / se
     p = 2 * stats.t.sf(np.abs(t), df)
 
     tss = float(np.sum((y - y.mean()) ** 2))
     r2 = 1.0 - rss / tss
     adj_r2 = 1.0 - (1.0 - r2) * (n - 1) / df
     if k > 1:
-        f_stat = ((tss - rss) / (k - 1)) / sigma2
+        f_stat = ((tss - rss) / (k - 1)) / sigma2 if sigma2 > 0 else float("inf")
         f_pvalue = float(stats.f.sf(f_stat, k - 1, df))
     else:
         f_stat, f_pvalue = float("nan"), float("nan")
