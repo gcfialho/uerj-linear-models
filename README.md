@@ -103,8 +103,8 @@ Restricting to the 165 countries with density ≥ 10 and area ≥ 1,000 km², wh
 - **Least squares.** With $X$ the $n \times k$ design matrix (a column of ones, then the regressors) and $X = QR$ its thin QR decomposition, the estimate solves $R\hat\beta = Q^\top y$. The fit refuses rank-deficient designs.
 - **Inference** assumes homoscedastic, independent errors:
   - the error variance is estimated by $\hat\sigma^2 = e^\top e/(n-k)$;
-  - $\operatorname{Var}(\hat\beta) = \hat\sigma^2 (X^\top X)^{-1} = \hat\sigma^2 R^{-1}R^{-\top}$;
-  - each $t_j = \hat\beta_j / \operatorname{se}_j$ is compared with a t distribution on $n-k$ degrees of freedom;
+  - $\mathrm{Var}(\hat\beta) = \hat\sigma^2 (X^\top X)^{-1} = \hat\sigma^2 R^{-1}R^{-\top}$;
+  - each $t_j = \hat\beta_j / \mathrm{se}_j$ is compared with a t distribution on $n-k$ degrees of freedom;
   - the F test compares $(\text{TSS}-\text{RSS})/(k-1)$ with $\hat\sigma^2$.
 - **Correlation** is Pearson's $S_{xy}/\sqrt{S_{xx}S_{yy}}$. In a simple regression, $R^2 = \rho^2$ and the slope is $\rho\, s_y/s_x$; both are tested.
 - **Diagnostics:**
